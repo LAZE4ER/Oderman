@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Menu</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='menu.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="{{ url_for('index') }}">Home</a>
+    </header>
+    <div class="menu">
+      <h1 style="font-family: Arial, Helvetica, sans-serif">
+        <span style="color: green">O</span><span style="color: white">u</span
+        ><span style="color: red">r</span> Menu
+      </h1>
+    </div>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name of pizza</th>
+            <th>Ingridients</th>
+            <th class="Price">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pizza in pizzas %}
+          <tr>
+            <td>{{ pizza.name }}</td>
+            <td>{{ pizza.ingredients }}</td>
+            <td class="Price">{{ pizza.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
