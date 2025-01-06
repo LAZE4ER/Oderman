@@ -1,22 +1,25 @@
 import sqlite3
 
-try:
-    sql_connection = sqlite3.connect('pizza.db')
-    create_table_exequte = '''CREATE TABLE developers(
-        id INTEGER PRIMARY KEY,
-        name NOT NULL,
-        description NOT NULL,
-        price NOT NULL);
-    '''
-    cursor = sql_connection.cursor()
-    cursor.execute(create_table_exequte)
-    print('table created')
-    sql_connection.commit()
-    cursor.close()
 
-except sqlite3.Error as error:
-    print('Connection error')
 
-finally:
-    sql_connection.close()
-    print('Connection closed')
+connection = sqlite3.connect('pizza.db')
+
+with open('schema.sql') as f:
+    connection.execute(f.read())
+
+cur = connection.cursor()
+
+
+cur.execute("INSERT INTO pizzas (name, description.price) VALUES(?, ?, ?)",
+('Margherita', 'tomato sauce, mozzarella, basil','$3.15')
+)
+
+cur.execute("INSERT INTO pizzas (name, description.price) VALUES(?, ?, ?)",
+('Pepperoni', 'tomato sauce, mozzarella, pepperoni','$3.95')
+)
+cur.execute("INSERT INTO pizzas (name, description.price) VALUES(?, ?, ?)",
+('Hawaiian', 'tomato sauce, mozzarella, pineapple, chicken','$3.70')
+)
+
+connection.commit()
+connection.close()

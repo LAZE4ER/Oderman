@@ -34,7 +34,7 @@ def create():
             flash('Name not found')
         else:
             conn = get_db_connection()
-            conn.execute('INSERT INTO pizzas (, content) VALUES (?, ?)',
+            conn.execute('INSERT INTO pizzas (name, descriprion,price) VALUES (?, ?, ?)',
                 (name, description, price))
             conn.commit()
             conn.close()
@@ -57,5 +57,3 @@ if __name__ == '__main__':
 
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
