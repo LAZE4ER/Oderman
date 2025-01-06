@@ -14,18 +14,18 @@ def index():
     return render_template('base.html', title = ' Oderman Pizzeria!', a = 'Our Menu', head_title = 'Odrman Italiano')
 
 
+
 @app.route('/menu')
 def menu():
-    pizzas = [
-        {"name": "Margherita", "ingredients": "tomato sauce, mozzarella, basil", "price": "$3.15"},
-        {"name": "Pepperoni", "ingredients": "tomato sauce, mozzarella, pepperoni", "price": "$3.95"},
-        {"name": "Hawaiian", "ingredients": "tomato sauce, mozzarella, pineapple, chicken", "price": "$3.70"}
-    ]
-    return render_template("menu.html", name_pizza = 'Name of pizza', ing = 'Ingridients',pizzas=pizzas)
+   
+    conn = get_db_connection()
+    pizzas = conn.execute('SELECT * FROM pizzas').fetchall()
+    conn.close()
+    return render_template("menu.html", name_pizza = 'Name of pizza', ing = 'Ingridients', pizzas=pizzas)
 
 
 @app.route('/add', methods=['GET', 'POST'])
-def create():
+def add():
     if request.method == 'POST':
         name = request.form['title']
         description = request.form['description']

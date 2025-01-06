@@ -7,18 +7,18 @@
   </head>
   <body>
     
-  <form>
+  <form method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Name</label>
-    <input type="text" class="form-control"  value="{{ request.form['name'] }}">
+    <input type="text" class="form-control" name="name" value="{{ request.form['name'] }}">
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Description</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" value ="{{ request.form['description'] }}">
+    <input type="text" class="form-control" name="description" id="exampleInputPassword1" value ="{{ request.form['description'] }}">
   </div>
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Price</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" value ="{{ request.form['price'] }}">
+    <input type="text" class="form-control" name="price" id="exampleInputEmail1" value ="{{ request.form['price'] }}">
     
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

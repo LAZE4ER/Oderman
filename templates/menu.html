@@ -20,6 +20,7 @@
     </div>
 
     <main>
+
       <table>
         <thead>
           <tr>
@@ -29,14 +30,20 @@
           </tr>
         </thead>
         <tbody>
-          {% for pizza in pizzas |sort(attribute="price") %}
-          <tr>
-            <td>{{ pizza.name }}</td>
-            <td>{{ pizza.ingredients }}</td>
+          <tr></tr>
+        {% for pizza in pizzas %}
+          <td>{{ pizza.name }}</td>
+            <td>{{ pizza.descriprion] }}</td>
+            {% for pizza in pizzas |sort(attribute="price") %}
             <td class="Price">{{ pizza.price }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
+            {% endfor %}
+    {% endfor %}
+    </tr>
+  </tbody>
+        
+        
+          
+        
       </table>
     </main>
   </body>
