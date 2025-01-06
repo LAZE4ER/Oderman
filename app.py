@@ -1,9 +1,13 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, redirect, flash, request, url_for
+import sqlite3
 
 
 app = Flask(__name__)
 
+def get_db_connection():
+    conn = sqlite3.connect('pizza.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 @app.route('/')
 def index():
@@ -13,11 +17,40 @@ def index():
 @app.route('/menu')
 def menu():
     pizzas = [
-        {"name": "Margherita", "ingredients": "Tomato sauce, mozzarella, basil", "price": "$3.15"},
-        {"name": "Pepperoni", "ingredients": "Tomato sauce, mozzarella, pepperoni", "price": "$3.95"},
-        {"name": "Hawaiian", "ingredients": "Tomato sauce, mozzarella, pineapple, chicken", "price": "$3.70"}
+        {"name": "Margherita", "ingredients": "tomato sauce, mozzarella, basil", "price": "$3.15"},
+        {"name": "Pepperoni", "ingredients": "tomato sauce, mozzarella, pepperoni", "price": "$3.95"},
+        {"name": "Hawaiian", "ingredients": "tomato sauce, mozzarella, pineapple, chicken", "price": "$3.70"}
     ]
     return render_template("menu.html", name_pizza = 'Name of pizza', ing = 'Ingridients',pizzas=pizzas)
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def create():
+    if request.method == 'POST':
+        name = request.form['title']
+        description = request.form['description']
+        price = request.form['price']
+        if not name:
+            flash('Name not found')
+        else:
+            conn = get_db_connection()
+            conn.execute('INSERT INTO pizzas (, content) VALUES (?, ?)',
+                (name, description, price))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('menu'))
+    return render_template('add.html')  
+
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
+
+
+
     
 
 

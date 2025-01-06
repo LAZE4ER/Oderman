@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for pizza in pizzas %}
+          {% for pizza in pizzas |sort(attribute="price") %}
           <tr>
             <td>{{ pizza.name }}</td>
             <td>{{ pizza.ingredients }}</td>
