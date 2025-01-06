@@ -2,12 +2,13 @@ import sqlite3
 
 
 
-connection = sqlite3.connect('pizza.db')
+connection = sqlite3.connect('pizza_app.db')
 
 with open('schema.sql') as f:
     connection.execute(f.read())
 
 cur = connection.cursor()
+
 
 
 cur.execute("INSERT INTO pizzas (name, description,price) VALUES(?, ?, ?)",

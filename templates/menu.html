@@ -3,47 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <title>Menu</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='menu.css') }}"
-    />
+    <link rel="stylesheet" href="menu.css" />
+    <style>
+      body {
+        background-color: grey;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 10vh;
+        background-color: white;
+      }
+      a {
+        font-size: 2em;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        margin-top: 30px;
+      }
+      h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 2em;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      h1 span:nth-child(1) {
+        color: green;
+      }
+      h1 span:nth-child(2) {
+        color: white;
+      }
+      h1 span:nth-child(3) {
+        color: red;
+      }
+      table {
+        width: 60%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid white;
+      }
+      th {
+        font-size: 1.2em;
+      }
+      .menu {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+    </style>
   </head>
   <body>
     <header>
       <a href="{{ url_for('index') }}">Home</a>
     </header>
     <div class="menu">
-      <h1 style="font-family: Arial, Helvetica, sans-serif">
-        <span style="color: green">O</span><span style="color: white">u</span
-        ><span style="color: red">r</span> Menu
-      </h1>
+      <h1><span>O</span><span>u</span><span>r</span> Menu</h1>
     </div>
 
     <main>
-
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th class="Price">Price</th>
+            <th>Name of pizza</th>
+            <th>Ingredients</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
-          <tr></tr>
-        {% for pizza in pizzas %}
-          <td>{{ pizza.name }}</td>
-            <td>{{ pizza.descriprion] }}</td>
-            {% for pizza in pizzas |sort(attribute="price") %}
-            <td class="Price">{{ pizza.price }}</td>
-            {% endfor %}
-    {% endfor %}
-    </tr>
-  </tbody>
-        
-        
-          
-        
+          {% for pizza in pizzas | sort(attribute="price") %}
+          <tr>
+            <td>{{ pizza.name }}</td>
+            <td>{{ pizza.description }}</td>
+            <td>{{pizza.price }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </main>
   </body>
