@@ -50,13 +50,13 @@
         color: red;
       }
       table {
-        width: 60%;
         border-collapse: collapse;
       }
       th,
       td {
         padding: 10px;
         border-bottom: 1px solid white;
+        text-align: center;
       }
       th {
         font-size: 1.2em;
@@ -66,38 +66,28 @@
         justify-content: center;
         margin-top: 50px;
       }
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+      .edit-btn, .delete-btn {
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-size: 1.2em;
+      }
     </style>
   </head>
   <body>
-    <header
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 10vh;
-        background-color: white;
-      "
-    >
+    <header>
       <a href="{{ url_for('index') }}">Home</a>
       <a href="{{ url_for('add') }}">Add Pizza</a>
-      <a
-        href="{{ url_for('weather') }}"
-        style="
-          font-size: 2em;
-          text-decoration: none;
-          color: black;
-          font-weight: bold;
-          font-family: Arial, Helvetica, sans-serif;
-          margin-left: 60px;
-        "
-        >Weather</a
-      >
+      <a href="{{ url_for('weather') }}">Weather</a>
     </header>
     <div class="menu">
       <h1><span>O</span><span>u</span><span>r</span> Menu</h1>
     </div>
-
     <main>
       <table>
         <thead>
@@ -105,6 +95,7 @@
             <th>Name of pizza</th>
             <th>Ingredients</th>
             <th>Price</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -112,7 +103,10 @@
           <tr>
             <td>{{ pizza.name }}</td>
             <td>{{ pizza.description }}</td>
-            <td>{{pizza.price }}</td>
+            <td>{{ pizza.price }}</td>
+            <td class="actions">
+              <a href="{{ url_for('edit', pizza_id=pizza.id) }}">✏️</a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>

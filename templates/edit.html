@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit "{{ pizza.name }}"</title>
+</head>
+<body>
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="Pizza name"
+                   class="form-control"
+                   value="{{ request.form['name'] or pizza['name'] }}">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" placeholder="Pizza description"
+                      class="form-control">{{ request.form['description'] or pizza['description'] }}</textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" name="price" placeholder="Pizza price"
+                   class="form-control"
+                   value="{{ request.form['price'] or pizza['price'] }}">
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    <hr>
+    <form action="{{ url_for('delete', pizza_id=pizza['id']) }}" method="POST">
+        <input type="submit" value="Delete Pizza"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Are you sure you want to delete this pizza?')">
+    </form>
+</body>
+</html>
