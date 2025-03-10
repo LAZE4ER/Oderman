@@ -5,6 +5,14 @@ from werkzeug.exceptions import abort
 
 app = Flask(__name__)
 
+filename = 'data.txt'
+
+poll_data = {
+    'question': 'Which pizza is the best?',
+    'fields': ['Peperoni', 'Gawaian', 'Margherita'],
+}
+
+
 def get_db_connection():
     conn = sqlite3.connect('pizza_app.db')
     conn.row_factory = sqlite3.Row
@@ -94,6 +102,30 @@ def weather():
             else:
                 error = f"City '{city}' not found. Please try again."
     return render_template('weather.html', weather_data=weather_data, error=error)
+
+
+
+@app.route('/poll')
+def poll():
+    vote = request.args.get("field")
+    with open(filename, 'a') as f:
+        f.write(str(vote) + '\n')
+    return render_template('poll.html', data=poll_data)
+@app.route('/result')
+def result():
+    with open(filename, 'r') as f:
+        votes = f.read().strip().split('\n')
+    last_vote = votes[-1].split(':')[-1].strip() if votes else None
+    return render_template('result.html', data=poll_data, vote=last_vote)
+
+    
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
